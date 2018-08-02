@@ -2,6 +2,8 @@
     <string name="app_name">DailyNews</string>
     <string name="edit_query_hint">Search query</string>
 
+    <string name="title">Daily News - Headlines</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

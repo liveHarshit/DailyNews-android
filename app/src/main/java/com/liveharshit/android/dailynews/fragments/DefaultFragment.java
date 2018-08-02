@@ -22,7 +22,7 @@ public class DefaultFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.news_list, container, false);
 
-        String url = getArguments().getString("url");
+        String url = getArguments().getString("API_URL");
 
         TextView alertTextView = (TextView) rootView.findViewById(R.id.alert_text_view);
         alertTextView.setText(url);
