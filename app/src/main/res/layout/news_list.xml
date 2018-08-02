@@ -9,4 +9,6 @@
     android:id="@+id/alert_text_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"></TextView>
+    android:layout_gravity="center">
+
+</TextView>
