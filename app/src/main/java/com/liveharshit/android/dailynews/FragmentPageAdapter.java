@@ -1,6 +1,7 @@
 package com.liveharshit.android.dailynews;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,23 +16,29 @@ public class FragmentPageAdapter extends FragmentPagerAdapter {
         super(fm);
     }
 
+    Bundle bundle = new Bundle();
+    Fragment defaultFragment = new DefaultFragment();
+
 
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
-            return new DefaultFragment();
+            bundle.putString("url", "This is the url");
+
+            defaultFragment.setArguments(bundle);
+            return defaultFragment;
         } else if (position == 1) {
-            return new SportsFragment();
+            return defaultFragment;
         } else if (position == 2) {
-            return new EntertainmentFragment();
+            return defaultFragment;
         } else if (position == 3) {
-            return new TechnologyFragment();
+            return defaultFragment;
         } else if (position == 4) {
-            return new ScienceFragment();
+            return defaultFragment;
         } else if (position == 5) {
-            return new HealthFragment();
+            return defaultFragment;
         } else {
-            return new BusinessFragment();
+            return defaultFragment;
         }
     }
 
@@ -44,7 +51,7 @@ public class FragmentPageAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         if (position == 0) {
-            return "Home";
+            return "Headlines";
         } else if (position == 1) {
             return "Sports";
         } else if (position == 2) {

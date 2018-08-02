@@ -11,4 +11,9 @@
         android:title="@string/abc_search_hint"
         app:showAsAction="always" />
 
+    <item
+        android:icon="@drawable/india_icon"
+        android:title="@string/app_name"
+        app:showAsAction="always" />
+
 </menu>

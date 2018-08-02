@@ -26,6 +26,7 @@ public class NewsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
 
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -59,11 +60,26 @@ public class NewsActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        return super.onOptionsItemSelected(item);
+    }
+
     private void performSearch(String query) {
         Toast.makeText(this, query, Toast.LENGTH_SHORT).show();
         InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         in.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
-        tabs.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (searchView.isSearchOpen()) {
+            searchView.closeSearch();
+            tabs.setVisibility(View.VISIBLE);
+        } else {
+            super.onBackPressed();
+        }
     }
 
 }

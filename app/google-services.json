@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "218013230861",
+    "firebase_url": "https://dailynews-efea0.firebaseio.com",
+    "project_id": "dailynews-efea0",
+    "storage_bucket": "dailynews-efea0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:218013230861:android:5d7629350ee9cd54",
+        "android_client_info": {
+          "package_name": "com.liveharshit.android.dailynews"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "218013230861-tcs22o59vfl2mbf55dbk7uca6nhoqlj0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.liveharshit.android.dailynews",
+            "certificate_hash": "1d49f5cebe35a78dfeb69713b944f1885b85f478"
+          }
+        },
+        {
+          "client_id": "218013230861-hd7nlk3tu2qasg60jfr78i24njnhjlic.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCF8cEY5GqLg7kLbYHoqafBJcLbnREkiTs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "218013230861-hd7nlk3tu2qasg60jfr78i24njnhjlic.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
