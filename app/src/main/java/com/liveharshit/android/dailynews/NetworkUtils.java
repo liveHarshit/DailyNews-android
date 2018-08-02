@@ -2,6 +2,10 @@ package com.liveharshit.android.dailynews;
 
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,7 +21,7 @@ public class NetworkUtils {
         //Required empty private constructor
     }
 
-    public static String fetchNewsData(String requestUrl) {
+    public static /*ArrayList<NewsItems>*/ String fetchNewsData(String requestUrl) {
         Log.e("url", requestUrl);
         URL url = null;
         try {
@@ -34,6 +38,7 @@ public class NetworkUtils {
             Log.e("Error", "Failed to make HTTP request");
         }
 
+        ArrayList<NewsItems> newsData = parseJsonResponse(jsonResponse);
         return jsonResponse;
     }
 
@@ -76,6 +81,47 @@ public class NetworkUtils {
             }
         }
         return output.toString();
+    }
+
+    public static ArrayList<NewsItems> parseJsonResponse(String jsonResponse) {
+
+        ArrayList<NewsItems> newsData = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(jsonResponse);
+            JSONArray articles = jsonObject.getJSONArray("articles");
+            for (int i = 0; i < articles.length(); i++) {
+                JSONObject currentNews = articles.getJSONObject(i);
+                String title = currentNews.getString("title");
+                String description;
+                if (currentNews.has("description")) {
+                    description = currentNews.getString("description");
+                } else {
+                    description = "Description not available";
+                }
+                String newsUrl;
+                if (currentNews.has("url")) {
+                    newsUrl = currentNews.getString("url");
+                } else {
+                    newsUrl = "Detail not available";
+                }
+                String imageUrl;
+                if (currentNews.has("urlToImage")) {
+                    imageUrl = currentNews.getString("urlToImage");
+                } else {
+                    imageUrl = null;
+                }
+
+                Log.d("Title", title);
+                Log.d("Description", description);
+                Log.d("News url", newsUrl);
+                Log.d("Image url", imageUrl);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        return null;
     }
 
 
