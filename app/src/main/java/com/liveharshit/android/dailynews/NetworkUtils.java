@@ -21,8 +21,8 @@ public class NetworkUtils {
         //Required empty private constructor
     }
 
-    public static /*ArrayList<NewsItems>*/ String fetchNewsData(String requestUrl) {
-        Log.e("url", requestUrl);
+    public static ArrayList<NewsItems> fetchNewsData(String requestUrl) {
+        Log.d("url on utils", requestUrl);
         URL url = null;
         try {
             url = new URL(requestUrl);
@@ -39,7 +39,7 @@ public class NetworkUtils {
         }
 
         ArrayList<NewsItems> newsData = parseJsonResponse(jsonResponse);
-        return jsonResponse;
+        return newsData;
     }
 
     private static String makeHTTPrequest(URL url) throws IOException {
@@ -111,17 +111,16 @@ public class NetworkUtils {
                     imageUrl = null;
                 }
 
+                NewsItems newsItems = new NewsItems(title, description, newsUrl, imageUrl);
+                newsData.add(newsItems);
+
                 Log.d("Title", title);
-                Log.d("Description", description);
-                Log.d("News url", newsUrl);
-                Log.d("Image url", imageUrl);
+
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
-        return null;
+        return newsData;
     }
 
 
