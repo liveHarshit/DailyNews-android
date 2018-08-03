@@ -1,14 +1,17 @@
 package com.liveharshit.android.dailynews.fragments;
 
 
+import com.liveharshit.android.dailynews.DescriptionActivity;
 import com.liveharshit.android.dailynews.NetworkUtils;
 import com.liveharshit.android.dailynews.NewsAdapter;
 import com.liveharshit.android.dailynews.NewsItems;
 import com.liveharshit.android.dailynews.R;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
@@ -36,7 +39,7 @@ public class DefaultFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.news_list, container, false);
         url = getArguments().getString("API_URL");
         Log.d("url on fragment", url);
@@ -48,6 +51,19 @@ public class DefaultFragment extends Fragment {
         NewsAsyncTask task = new NewsAsyncTask();
         task.execute(url);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                NewsAdapter adapter = (NewsAdapter) parent.getAdapter();
+                NewsItems currentNews = adapter.getItem(position);
+                String description = currentNews.getDescription();
+                String imageUrl = currentNews.getImageUrl();
+                Intent intent = new Intent(getContext(), DescriptionActivity.class);
+                intent.putExtra("description", description);
+                intent.putExtra("imageUrl", imageUrl);
+                getContext().startActivity(intent);
+            }
+        });
 
         return rootView;
     }
