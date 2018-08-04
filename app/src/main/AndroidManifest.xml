@@ -20,7 +20,12 @@
         </activity>
         <activity
             android:name=".DescriptionActivity"
-            android:parentActivityName=".NewsActivity"></activity>
+            android:parentActivityName=".NewsActivity" />
+        <activity
+            android:name=".DetailActivity"
+            android:label="@string/title_activity_detail"
+            android:parentActivityName=".NewsActivity"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

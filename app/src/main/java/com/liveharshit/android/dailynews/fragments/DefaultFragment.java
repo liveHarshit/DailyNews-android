@@ -2,6 +2,7 @@ package com.liveharshit.android.dailynews.fragments;
 
 
 import com.liveharshit.android.dailynews.DescriptionActivity;
+import com.liveharshit.android.dailynews.DetailActivity;
 import com.liveharshit.android.dailynews.NetworkUtils;
 import com.liveharshit.android.dailynews.NewsAdapter;
 import com.liveharshit.android.dailynews.NewsItems;
@@ -24,13 +25,14 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.liveharshit.android.dailynews.FragmentPageAdapter;
+
 import java.util.ArrayList;
 
 public class DefaultFragment extends Fragment {
 
     public DefaultFragment() {
     }
-
     private static NewsAdapter mAdapter;
     private String url;
     private ListView listView;
@@ -58,12 +60,13 @@ public class DefaultFragment extends Fragment {
                 NewsItems currentNews = adapter.getItem(position);
                 String description = currentNews.getDescription();
                 String imageUrl = currentNews.getImageUrl();
-                Intent intent = new Intent(getContext(), DescriptionActivity.class);
+                Intent intent = new Intent(getContext(), DetailActivity.class);
                 intent.putExtra("description", description);
                 intent.putExtra("imageUrl", imageUrl);
                 getContext().startActivity(intent);
             }
         });
+
 
         return rootView;
     }

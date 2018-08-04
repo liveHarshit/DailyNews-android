@@ -19,6 +19,8 @@ public class FragmentPageAdapter extends FragmentPagerAdapter {
         super(fm);
     }
 
+    public boolean isFinished = true;
+
     private static final String BASE_API_URL = "https://newsapi.org/v2/top-headlines?country=in&apiKey=399c82904bbc41dda0f3ae51acab425d";
 
     @Override
