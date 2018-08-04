@@ -13,14 +13,14 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 public class DetailActivity extends AppCompatActivity {
 
     private CollapsingToolbarLayout collapsingToolbar;
     private AppBarLayout appBarLayout;
-    private Menu collapsedMenu;
-    private boolean appBarExpanded = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,13 +55,22 @@ public class DetailActivity extends AppCompatActivity {
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 //  Vertical offset == 0 indicates appBar is fully expanded.
                 if (Math.abs(verticalOffset) > 200) {
-                    appBarExpanded = false;
                     invalidateOptionsMenu();
                 } else {
-                    appBarExpanded = true;
                     invalidateOptionsMenu();
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

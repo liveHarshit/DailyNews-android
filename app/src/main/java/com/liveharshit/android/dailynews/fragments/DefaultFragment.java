@@ -1,7 +1,6 @@
 package com.liveharshit.android.dailynews.fragments;
 
 
-import com.liveharshit.android.dailynews.DescriptionActivity;
 import com.liveharshit.android.dailynews.DetailActivity;
 import com.liveharshit.android.dailynews.NetworkUtils;
 import com.liveharshit.android.dailynews.NewsAdapter;
@@ -12,20 +11,14 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-
-import com.liveharshit.android.dailynews.FragmentPageAdapter;
 
 import java.util.ArrayList;
 
