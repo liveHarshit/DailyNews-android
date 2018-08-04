@@ -28,6 +28,7 @@ public class DefaultFragment extends Fragment {
     }
     private static NewsAdapter mAdapter;
     private String url;
+    private String category;
     private ListView listView;
     private ProgressBar progressBar;
 
@@ -37,6 +38,7 @@ public class DefaultFragment extends Fragment {
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.news_list, container, false);
         url = getArguments().getString("API_URL");
+        category = getArguments().getString("category");
         Log.d("url on fragment", url);
         progressBar = (ProgressBar) rootView.findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.VISIBLE);
@@ -51,11 +53,16 @@ public class DefaultFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 NewsAdapter adapter = (NewsAdapter) parent.getAdapter();
                 NewsItems currentNews = adapter.getItem(position);
+                String title = currentNews.getTitle();
                 String description = currentNews.getDescription();
                 String imageUrl = currentNews.getImageUrl();
+                String newsUrl = currentNews.getNewsUrl();
                 Intent intent = new Intent(getContext(), DetailActivity.class);
+                intent.putExtra("title", title);
                 intent.putExtra("description", description);
                 intent.putExtra("imageUrl", imageUrl);
+                intent.putExtra("newsUrl", newsUrl);
+                intent.putExtra("category", category);
                 getContext().startActivity(intent);
             }
         });

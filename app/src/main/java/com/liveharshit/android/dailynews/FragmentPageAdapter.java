@@ -28,42 +28,49 @@ public class FragmentPageAdapter extends FragmentPagerAdapter {
         if (position == 0) {
             Bundle bundle = new Bundle();
             bundle.putString("API_URL", BASE_API_URL);
+            bundle.putString("category", "Headline");
             Fragment defaultFragment = new DefaultFragment();
             defaultFragment.setArguments(bundle);
             return defaultFragment;
         } else if (position == 1) {
             Bundle bundle = new Bundle();
             bundle.putString("API_URL", BASE_API_URL + "&category=sports");
+            bundle.putString("category", "Sports");
             Fragment defaultFragment = new DefaultFragment();
             defaultFragment.setArguments(bundle);
             return defaultFragment;
         } else if (position == 2) {
             Bundle bundle = new Bundle();
             bundle.putString("API_URL", BASE_API_URL + "&category=entertainment");
+            bundle.putString("category", "Entertainment");
             Fragment defaultFragment = new DefaultFragment();
             defaultFragment.setArguments(bundle);
             return defaultFragment;
         } else if (position == 3) {
             Bundle bundle = new Bundle();
             bundle.putString("API_URL", BASE_API_URL + "&category=technology");
+            bundle.putString("category", "Technology");
             Fragment defaultFragment = new DefaultFragment();
             defaultFragment.setArguments(bundle);
             return defaultFragment;
         } else if (position == 4) {
             Bundle bundle = new Bundle();
             bundle.putString("API_URL", BASE_API_URL + "&category=science");
+            bundle.putString("category", "Science");
             Fragment defaultFragment = new DefaultFragment();
             defaultFragment.setArguments(bundle);
             return defaultFragment;
         } else if (position == 5) {
             Bundle bundle = new Bundle();
             bundle.putString("API_URL", BASE_API_URL + "&category=health");
+            bundle.putString("category", "Health");
             Fragment defaultFragment = new DefaultFragment();
             defaultFragment.setArguments(bundle);
             return defaultFragment;
         } else {
             Bundle bundle = new Bundle();
             bundle.putString("API_URL", BASE_API_URL + "&category=business");
+            bundle.putString("category", "Business");
             Fragment defaultFragment = new DefaultFragment();
             defaultFragment.setArguments(bundle);
             return defaultFragment;
