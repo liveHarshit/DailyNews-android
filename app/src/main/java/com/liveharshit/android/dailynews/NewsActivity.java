@@ -1,6 +1,7 @@
 package com.liveharshit.android.dailynews;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -69,9 +70,11 @@ public class NewsActivity extends AppCompatActivity {
     }
 
     private void performSearch(String query) {
-        Toast.makeText(this, query, Toast.LENGTH_SHORT).show();
         InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         in.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
+        Intent intent = new Intent(this, SearchActivity.class);
+        intent.putExtra("query", query);
+        startActivity(intent);
     }
 
     @Override
