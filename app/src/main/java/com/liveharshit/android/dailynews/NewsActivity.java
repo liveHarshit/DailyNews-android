@@ -3,6 +3,7 @@ package com.liveharshit.android.dailynews;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -27,6 +28,7 @@ public class NewsActivity extends AppCompatActivity {
     private PagerSlidingTabStrip tabs;
     private TextView alertTextview;
     private ImageView refreshButton;
+    private boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +102,21 @@ public class NewsActivity extends AppCompatActivity {
             searchView.closeSearch();
             tabs.setVisibility(View.VISIBLE);
         } else {
-            super.onBackPressed();
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+                return;
+            }
+
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
         }
     }
 
@@ -109,5 +125,6 @@ public class NewsActivity extends AppCompatActivity {
 
         return cm.getActiveNetworkInfo() != null;
     }
+
 
 }
