@@ -19,6 +19,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
+
 public class SearchActivity extends AppCompatActivity {
     private String query;
     private static NewsAdapter mAdapter;
@@ -29,8 +31,8 @@ public class SearchActivity extends AppCompatActivity {
     private ListView listView;
     private ProgressBar progressBar;
     private TextView alertTextView;
-    private ImageView refreshButton;
     private Toolbar toolbar;
+    private WaveSwipeRefreshLayout mWaveSwipeRefreshLayout;
 
 
     @Override
@@ -57,27 +59,16 @@ public class SearchActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progress_bar);
         alertTextView = findViewById(R.id.alert_text_view);
         listView = findViewById(R.id.list_view);
-        refreshButton = findViewById(R.id.refresh_button);
         mAdapter = new NewsAdapter(this, 0, new ArrayList<NewsItems>());
         listView.setAdapter(mAdapter);
 
-        NewsAsyncTask task = new NewsAsyncTask();
+        final NewsAsyncTask task = new NewsAsyncTask();
 
         if (isNetworkConnected()) {
             task.execute(finalUrl);
         } else {
-            alertTextView.setText("Check your internet connection!");
+            alertTextView.setText("Check your internet connection! \nPull to refresh.");
             progressBar.setVisibility(View.INVISIBLE);
-            refreshButton.setVisibility(View.VISIBLE);
-            refreshButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(SearchActivity.this, SearchActivity.class);
-                    intent.putExtra("query", query);
-                    startActivity(intent);
-                    finish();
-                }
-            });
         }
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -98,7 +89,22 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+        mWaveSwipeRefreshLayout = findViewById(R.id.main_swipe);
+        mWaveSwipeRefreshLayout.setOnRefreshListener(new WaveSwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshActivity();
+            }
+        });
 
+
+    }
+
+    private void refreshActivity() {
+        Intent intent = new Intent(SearchActivity.this, SearchActivity.class);
+        intent.putExtra("query", query);
+        startActivity(intent);
+        finish();
     }
 
     private boolean isNetworkConnected() {
@@ -126,6 +132,8 @@ public class SearchActivity extends AppCompatActivity {
                 alertTextView.setText("No item found!");
             }
         }
+
+
     }
 
     @Override
