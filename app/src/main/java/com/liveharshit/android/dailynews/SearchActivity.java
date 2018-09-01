@@ -1,6 +1,8 @@
 package com.liveharshit.android.dailynews;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +10,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -20,6 +25,10 @@ public class SearchActivity extends AppCompatActivity {
     private final String SORT_BY_PARAM = "sortBy";
     private final String KEY_PARAM = "apiKey";
     private ListView listView;
+    private ProgressBar progressBar;
+    private TextView alertTextView;
+    private ImageView refreshButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +45,34 @@ public class SearchActivity extends AppCompatActivity {
                 .appendQueryParameter(SORT_BY_PARAM, "publishedAt")
                 .appendQueryParameter(KEY_PARAM, "399c82904bbc41dda0f3ae51acab425d").build();
 
-        String finalUrl = builtUri.toString();
-        Log.d("fianl url", finalUrl);
+        final String finalUrl = builtUri.toString();
+        Log.d("final url", finalUrl);
 
+        progressBar = findViewById(R.id.progress_bar);
+        alertTextView = findViewById(R.id.alert_text_view);
         listView = findViewById(R.id.list_view);
+        refreshButton = findViewById(R.id.refresh_button);
         mAdapter = new NewsAdapter(this, 0, new ArrayList<NewsItems>());
         listView.setAdapter(mAdapter);
 
         NewsAsyncTask task = new NewsAsyncTask();
-        task.execute(finalUrl);
+
+        if (isNetworkConnected()) {
+            task.execute(finalUrl);
+        } else {
+            alertTextView.setText("Check your internet connection!");
+            progressBar.setVisibility(View.INVISIBLE);
+            refreshButton.setVisibility(View.VISIBLE);
+            refreshButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(SearchActivity.this, SearchActivity.class);
+                    intent.putExtra("query", query);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+        }
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -63,6 +91,14 @@ public class SearchActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return cm.getActiveNetworkInfo() != null;
     }
 
     private class NewsAsyncTask extends AsyncTask<String, Void, ArrayList<NewsItems>> {
@@ -76,8 +112,12 @@ public class SearchActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(ArrayList<NewsItems> newsItems) {
             /*mAdapter.clear();*/
+            progressBar.setVisibility(View.INVISIBLE);
             if (newsItems != null && !newsItems.isEmpty()) {
                 mAdapter.addAll(newsItems);
+            } else {
+                progressBar.setVisibility(View.INVISIBLE);
+                alertTextView.setText("No item found!");
             }
         }
     }
