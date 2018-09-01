@@ -7,7 +7,9 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -28,6 +30,7 @@ public class SearchActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private TextView alertTextView;
     private ImageView refreshButton;
+    private Toolbar toolbar;
 
 
     @Override
@@ -38,6 +41,9 @@ public class SearchActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         query = extras.getString("query");
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle("DailyNews- " + query);
 
         Uri builtUri = Uri.parse(BASE_API_URI).buildUpon()
@@ -120,5 +126,13 @@ public class SearchActivity extends AppCompatActivity {
                 alertTextView.setText("No item found!");
             }
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.homeAsUp) {
+            super.onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
