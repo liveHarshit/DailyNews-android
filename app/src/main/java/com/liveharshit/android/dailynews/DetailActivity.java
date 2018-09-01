@@ -66,7 +66,11 @@ public class DetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        category = bundle.getString("category");
+        if (bundle.containsKey("category")) {
+            category = bundle.getString("category");
+        } else {
+            category = "";
+        }
         title = bundle.getString("title");
         description = bundle.getString("description");
         imageUrl = bundle.getString("imageUrl");
