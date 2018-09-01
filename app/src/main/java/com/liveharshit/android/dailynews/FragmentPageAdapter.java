@@ -25,51 +25,51 @@ public class FragmentPageAdapter extends FragmentPagerAdapter {
             Bundle bundle = new Bundle();
             bundle.putString("API_URL", BASE_API_URL);
             bundle.putString("category", "Headline");
-            Fragment defaultFragment = new DefaultFragment();
-            defaultFragment.setArguments(bundle);
-            return defaultFragment;
+            Fragment headlineFragment = new HeadlineFragment();
+            headlineFragment.setArguments(bundle);
+            return headlineFragment;
         } else if (position == 1) {
             Bundle bundle = new Bundle();
             bundle.putString("API_URL", BASE_API_URL + "&category=sports");
             bundle.putString("category", "Sports");
-            Fragment defaultFragment = new DefaultFragment();
-            defaultFragment.setArguments(bundle);
-            return defaultFragment;
+            Fragment sportsFragment = new SportsFragment();
+            sportsFragment.setArguments(bundle);
+            return sportsFragment;
         } else if (position == 2) {
             Bundle bundle = new Bundle();
             bundle.putString("API_URL", BASE_API_URL + "&category=entertainment");
             bundle.putString("category", "Entertainment");
-            Fragment defaultFragment = new DefaultFragment();
-            defaultFragment.setArguments(bundle);
-            return defaultFragment;
+            Fragment entertainmentFragment = new EntertainmentFragment();
+            entertainmentFragment.setArguments(bundle);
+            return entertainmentFragment;
         } else if (position == 3) {
             Bundle bundle = new Bundle();
             bundle.putString("API_URL", BASE_API_URL + "&category=technology");
             bundle.putString("category", "Technology");
-            Fragment defaultFragment = new DefaultFragment();
-            defaultFragment.setArguments(bundle);
-            return defaultFragment;
+            Fragment technologyFragment = new TechnologyFragment();
+            technologyFragment.setArguments(bundle);
+            return technologyFragment;
         } else if (position == 4) {
             Bundle bundle = new Bundle();
             bundle.putString("API_URL", BASE_API_URL + "&category=science");
             bundle.putString("category", "Science");
-            Fragment defaultFragment = new DefaultFragment();
-            defaultFragment.setArguments(bundle);
-            return defaultFragment;
+            Fragment scienceFragment = new ScienceFragment();
+            scienceFragment.setArguments(bundle);
+            return scienceFragment;
         } else if (position == 5) {
             Bundle bundle = new Bundle();
             bundle.putString("API_URL", BASE_API_URL + "&category=health");
             bundle.putString("category", "Health");
-            Fragment defaultFragment = new DefaultFragment();
-            defaultFragment.setArguments(bundle);
-            return defaultFragment;
+            Fragment healthFragment = new HealthFragment();
+            healthFragment.setArguments(bundle);
+            return healthFragment;
         } else {
             Bundle bundle = new Bundle();
             bundle.putString("API_URL", BASE_API_URL + "&category=business");
             bundle.putString("category", "Business");
-            Fragment defaultFragment = new DefaultFragment();
-            defaultFragment.setArguments(bundle);
-            return defaultFragment;
+            Fragment businessFragment = new BusinessFragment();
+            businessFragment.setArguments(bundle);
+            return businessFragment;
         }
     }
 

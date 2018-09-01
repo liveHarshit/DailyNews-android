@@ -1,50 +1,55 @@
-package com.liveharshit.android.dailynews;
+package com.liveharshit.android.dailynews.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import com.liveharshit.android.dailynews.DetailActivity;
+import com.liveharshit.android.dailynews.NetworkUtils;
+import com.liveharshit.android.dailynews.NewsAdapter;
+import com.liveharshit.android.dailynews.NewsItems;
+import com.liveharshit.android.dailynews.R;
 
 import java.util.ArrayList;
 
-public class SearchActivity extends AppCompatActivity {
-    private String query;
+public class HeadlineFragment extends Fragment {
+
     private static NewsAdapter mAdapter;
-    private final String BASE_API_URI = "https://newsapi.org/v2/everything";
-    private final String QUERY_PARAM = "q";
-    private final String SORT_BY_PARAM = "sortBy";
-    private final String KEY_PARAM = "apiKey";
+    private String url;
+    private String category;
     private ListView listView;
+    private ProgressBar progressBar;
 
+    public HeadlineFragment() {
+        // Required empty public constructor
+    }
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
-
-        Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-        query = extras.getString("query");
-        setTitle("DailyNews- " + query);
-
-        Uri builtUri = Uri.parse(BASE_API_URI).buildUpon()
-                .appendQueryParameter(QUERY_PARAM, query)
-                .appendQueryParameter(SORT_BY_PARAM, "publishedAt")
-                .appendQueryParameter(KEY_PARAM, "399c82904bbc41dda0f3ae51acab425d").build();
-
-        String finalUrl = builtUri.toString();
-        Log.d("fianl url", finalUrl);
-
-        listView = findViewById(R.id.list_view);
-        mAdapter = new NewsAdapter(this, 0, new ArrayList<NewsItems>());
+    public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.news_list, container, false);
+        url = getArguments().getString("API_URL");
+        category = getArguments().getString("category");
+        Log.d("url on fragment", url);
+        progressBar = (ProgressBar) rootView.findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.VISIBLE);
+        listView = (ListView) rootView.findViewById(R.id.news_list);
+        mAdapter = new NewsAdapter(getActivity(), 0, new ArrayList<NewsItems>());
         listView.setAdapter(mAdapter);
-
         NewsAsyncTask task = new NewsAsyncTask();
-        task.execute(finalUrl);
+        task.execute(url);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -55,14 +60,18 @@ public class SearchActivity extends AppCompatActivity {
                 String description = currentNews.getDescription();
                 String imageUrl = currentNews.getImageUrl();
                 String newsUrl = currentNews.getNewsUrl();
-                Intent intent = new Intent(SearchActivity.this, DetailActivity.class);
+                Intent intent = new Intent(getContext(), DetailActivity.class);
                 intent.putExtra("title", title);
                 intent.putExtra("description", description);
                 intent.putExtra("imageUrl", imageUrl);
                 intent.putExtra("newsUrl", newsUrl);
-                startActivity(intent);
+                intent.putExtra("category", category);
+                getContext().startActivity(intent);
             }
         });
+
+
+        return rootView;
     }
 
     private class NewsAsyncTask extends AsyncTask<String, Void, ArrayList<NewsItems>> {
@@ -76,6 +85,7 @@ public class SearchActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(ArrayList<NewsItems> newsItems) {
             /*mAdapter.clear();*/
+            progressBar.setVisibility(View.INVISIBLE);
             if (newsItems != null && !newsItems.isEmpty()) {
                 mAdapter.addAll(newsItems);
             }

@@ -1,13 +1,8 @@
 package com.liveharshit.android.dailynews.fragments;
 
-
-import com.liveharshit.android.dailynews.DetailActivity;
-import com.liveharshit.android.dailynews.NetworkUtils;
-import com.liveharshit.android.dailynews.NewsAdapter;
-import com.liveharshit.android.dailynews.NewsItems;
-import com.liveharshit.android.dailynews.R;
-
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,19 +14,27 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import com.liveharshit.android.dailynews.DetailActivity;
+import com.liveharshit.android.dailynews.NetworkUtils;
+import com.liveharshit.android.dailynews.NewsAdapter;
+import com.liveharshit.android.dailynews.NewsItems;
+import com.liveharshit.android.dailynews.R;
 
 import java.util.ArrayList;
 
-public class DefaultFragment extends Fragment {
+public class HealthFragment extends Fragment {
 
-    public DefaultFragment() {
-    }
     private static NewsAdapter mAdapter;
     private String url;
     private String category;
     private ListView listView;
     private ProgressBar progressBar;
 
+    public HealthFragment() {
+        // Required empty public constructor
+    }
 
     @Nullable
     @Override
@@ -88,5 +91,4 @@ public class DefaultFragment extends Fragment {
             }
         }
     }
-
 }
